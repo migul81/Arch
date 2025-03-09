@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpcapi.proto";
+option java_outer_classname = "UserProto";
+
+package user;
+
+// The User service definition
+service UserService {
+    // Get all users
+    rpc GetAllUsers (Empty) returns (UserList) {}
+    
+    // Get user by ID
+    rpc GetUser (UserRequest) returns (User) {}
+    
+    // Create a new user
+    rpc CreateUser (User) returns (User) {}
+    
+    // Update an existing user
+    rpc UpdateUser (UpdateUserRequest) returns (User) {}
+    
+    // Delete a user
+    rpc DeleteUser (UserRequest) returns (Empty) {}
+}
+
+// Empty message for requests without parameters
+message Empty {}
+
+// User message represents a user entity
+message User {
+    int64 id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+// Request message with a user ID
+message UserRequest {
+    int64 id = 1;
+}
+
+// Request message for updating a user
+message UpdateUserRequest {
+    int64 id = 1;
+    User user = 2;
+}
+
+// Response message containing a list of users
+message UserList {
+    repeated User users = 1;
+}
